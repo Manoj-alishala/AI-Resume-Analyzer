@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { apiFetch } from "../../api";
 import "./index.css";
 
 const Navbar = () => {
@@ -17,12 +18,12 @@ const Navbar = () => {
   useEffect(() => {
     if (!token) { setUser(null); return; }
 
-    fetch("/auth/me", { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch("/auth/me", { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((data) => { if (data._id) setUser(data); })
       .catch(() => { });
 
-    fetch("/resume/history", { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch("/resume/history", { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((data) => { if (Array.isArray(data)) setHistory(data); })
       .catch(() => { });

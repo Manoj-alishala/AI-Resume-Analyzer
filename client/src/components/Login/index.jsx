@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { apiFetch } from "../../api";
 import "./index.css";
 
 const Login = () => {
@@ -35,7 +36,7 @@ const Login = () => {
       },
       body: JSON.stringify(userDetails)
     }
-    const response = await fetch(url, options)
+    const response = await apiFetch(url, options)
     const data = await response.json()
     console.log(data)
 

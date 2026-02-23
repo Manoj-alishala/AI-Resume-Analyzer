@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../../api";
 import Navbar from "../Navbar";
 import "./index.css";
 
@@ -24,8 +25,8 @@ const Dashboard = () => {
         if (!token) { navigate("/login"); return; }
 
         Promise.all([
-            fetch("/auth/me", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
-            fetch("/resume/history", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+            apiFetch("/auth/me", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+            apiFetch("/resume/history", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
         ])
             .then(([userData, historyData]) => {
                 if (userData._id) setUser(userData);

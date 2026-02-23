@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { apiFetch } from "../../api";
 import "./index.css";
 
 const Register = () => {
@@ -26,7 +27,7 @@ const Register = () => {
         };
 
         try {
-            const response = await fetch(url, options);
+            const response = await apiFetch(url, options);
             const data = await response.json();
 
             if (response.ok) {

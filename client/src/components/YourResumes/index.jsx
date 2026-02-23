@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { apiFetch } from "../../api";
 import Navbar from "../Navbar";
 import "./index.css";
 
@@ -26,13 +27,13 @@ const YourResumes = () => {
     try {
       setLoading(true); setError("");
 
-      const up = await fetch("/resume/upload", {
+      const up = await apiFetch("/resume/upload", {
         method: "POST", headers: { Authorization: `Bearer ${token}` }, body: formData,
       });
       if (!up.ok) throw new Error(await up.text() || "Upload failed");
       const { text } = await up.json();
 
-      const an = await fetch("/resume/analyze", {
+      const an = await apiFetch("/resume/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ resumeText: text, jobDescription: jobDescription.trim() }),
