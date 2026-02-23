@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/auth': 'http://localhost:5000',
-      '/resume': 'http://localhost:5000',
+      '/auth': 'https://ai-resume-analyzer-backend-2x79.onrender.com',
+      '/resume': 'https://ai-resume-analyzer-backend-2x79.onrender.com',
     }
   }
 })
