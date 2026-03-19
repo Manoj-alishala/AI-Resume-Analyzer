@@ -36,15 +36,29 @@ const Login = () => {
       },
       body: JSON.stringify(userDetails)
     }
-    const response = await apiFetch(url, options)
-    const data = await response.json()
-    console.log(data)
+    try {
+      const response = await apiFetch(url, options)
 
-    if (response.ok) {
-      localStorage.setItem("token", data.token);
-      navigate("/");
-    } else {
-      setError(data.message || "Login failed");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json()
+
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          navigate("/");
+        } else {
+          setError(data.message || "Login failed");
+        }
+      } else {
+        const text = await response.text();
+        console.error("Non-JSON Server Response:", text);
+        throw new Error("Server returned an invalid response. Check console for details.");
+      }
+    } catch (err) {
+      console.error("Login Error:", err);
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 

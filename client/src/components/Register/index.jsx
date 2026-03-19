@@ -28,16 +28,25 @@ const Register = () => {
 
         try {
             const response = await apiFetch(url, options);
-            const data = await response.json();
 
-            if (response.ok) {
-                localStorage.setItem("token", data.token);
-                navigate("/");
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("token", data.token);
+                    navigate("/");
+                } else {
+                    setError(data.message || "Registration failed");
+                }
             } else {
-                setError(data.message || "Registration failed");
+                const text = await response.text();
+                console.error("Non-JSON Server Response:", text);
+                throw new Error("Server returned an invalid response. Check console for details.");
             }
         } catch (err) {
-            setError("Something went wrong. Please try again.");
+            console.error("Registration Error caught in catch block:", err);
+            setError(err.message || "Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
