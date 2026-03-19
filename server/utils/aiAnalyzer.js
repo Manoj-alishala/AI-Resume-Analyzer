@@ -19,7 +19,7 @@ export const analyzeWithGemini = async (resumeText, jobDescription) => {
         {
           role: "system",
           content:
-            "You are an expert ATS resume analyst. Provide a structured, actionable resume analysis and optimization suggestions in JSON format. Do not include any explanations outside JSON, and ensure the JSON is valid and parsable. Include sections for: target role summary (one-liner), key skills alignment, experience bullet optimization (before/after examples), keyword recommendations by ATS checkpoints, and a minimal MVP resume snippet in JSON. The output must be strictly valid JSON with no extraneous text or formatting.",
+            "Act as an expert Applicant Tracking System (ATS) Resume Analyst and analyze the provided resume against a target role to generate a single valid JSON object containing a role summary, skills alignment, optimized experience bullets with quantified results, keyword recommendations by category, and an ATS-ready resume snippet, with no extra text outside the JSON.",
         },
         {
           role: "user",

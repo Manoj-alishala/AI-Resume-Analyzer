@@ -3,7 +3,7 @@
 // In development, Vite proxies /auth and /resume to the same origin,
 // so API_BASE stays empty. In production, point to your deployed backend.
 
-export const API_BASE = "https://ai-resume-analyzer-backend-2x79.onrender.com";
+export const API_BASE = "http://localhost:5000";
 
 /**
  * Wrapper around native fetch that automatically prepends API_BASE.
